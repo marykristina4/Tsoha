@@ -21,3 +21,4 @@ Kotityö-sovellus
 - Ylläpitäjä näkee eri käyttäjien tekemät kotityöt# Tsoha
 
 Repositorion nimi muutettu: uusi nimi Tsoha-kotityosovellus
+Päivitän myös labtooliin.
