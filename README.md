@@ -19,3 +19,5 @@ Kotityö-sovellus
 - Ylläpitäjä voi määrittää uusille kotitöille arvioidun suoritusajan
 - Ylläpitäjä voi poistaa käyttäjän raportoiman kotityön (esim kun palkka maksetaan, työ poistetaan)
 - Ylläpitäjä näkee eri käyttäjien tekemät kotityöt# Tsoha
+
+Repositorion nimi muutettu: uusi nimi Tsoha-kotityosovellus
