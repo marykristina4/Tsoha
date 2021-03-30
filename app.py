@@ -29,10 +29,10 @@ def login():
     else:
         hash_value = user[0]
     if check_password_hash(hash_value,password):
+        session["username"] = username
         return redirect("/homechores")
     else:
         return render_template("wrong_passwd.html")
-    session["username"] = username
 
 @app.route("/logout")
 def logout():
