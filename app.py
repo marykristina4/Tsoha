@@ -84,3 +84,36 @@ def new_chore():
     db.session.execute(sql2, {"description":kuvaus,"responsible_id":kukapaid,"minutes":kesto,"status_id":3,"category_id":3})
     db.session.commit()
     return render_template("homechores.html")
+
+@app.route("/choose_chore/<int:id>")
+def chore(id):
+    sql = "SELECT id, description, responsible_id, minutes, status_id, category_id FROM chores WHERE id=:id"
+    result = db.session.execute(sql, {"id":id})
+    content = result.fetchall()
+    sql2 = "SELECT * FROM statuses WHERE value in (1, 2, 3, 4)"
+    result2 = db.session.execute(sql2)
+    statuses = result2.fetchall()
+    return render_template("chore.html", id=id, content=content, statuses=statuses)
+
+@app.route("/update_chore", methods=["POST"])
+def update_chore():
+    id = request.form["id"]
+    minutes = request.form["kesto"]
+    status_id = request.form["status"]
+    print(id)
+    print(minutes)
+    print(status_id)
+    if minutes in (None, "", ''):
+        print("menee tähän ekaan vaihtoehtoon")
+        sql = "UPDATE chores SET status_id=:status_id WHERE id=:id"
+        db.session.execute(sql, {"status_id":status_id,"id":id})
+        db.session.commit()
+    else:
+        print("ja nyt menee tähän tokaan")
+        sql = "UPDATE chores SET status_id=:status_id WHERE id=:id" 
+        db.session.execute(sql, {"status_id":status_id,"id":id})
+        db.session.commit()
+        sql2 = "UPDATE chores SET minutes=:minutes WHERE id=:id"
+        db.session.execute(sql2, {"minutes":minutes,"id":id})
+        db.session.commit()
+    return redirect("/homechores")

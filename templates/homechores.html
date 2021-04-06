@@ -4,6 +4,7 @@
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
 <hr>
 {% for chore in chores %}
+<a href="/choose_chore/{{ chore[0] }}">Valitse tämä kotityö tehtäväksi / tarkasteltavaksi</a> <br>
 Kotityön kuvaus: {{ chore[1] }} <br>
 Vastuussa: {{ chore[2] }} <br>
 Kesto: {{ chore[3] }} <br>

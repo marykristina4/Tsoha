@@ -1,0 +1,41 @@
+<title>Etusivu</title
+<h1> Kuvaus kotityöstä</h1>
+{% if session.username %}
+<p>Olet kirjautunut nimellä {{ session.username }}</p>
+<hr>
+<p>Kotityön id {{ id }}</p>
+{% for content in content %}
+Kotityön id: {{ content[0] }} <br>
+Kotityön kuvaus: {{ content[1] }} <br>
+Vastuussa: {{ content[2] }} <br>
+Kesto: {{ content[3] }} <br>
+Vaihe: {{ content[4] }} <br>
+Kenelle soveltuu: {{ content[5] }} <br>
+</hr>
+{% endfor %}
+<p></p>
+<hr>
+<form action="/update_chore" method="POST">
+<p>Päivitä vaihe ja kokonaiskesto:<br>
+<input type="hidden" name="id" value={{ id }}></p>
+Tähän vielä statusvaihtoehdot:<br>
+{% for status in statuses %}
+<input type="radio" name="status" value={{ status[0] }}> {{ status[2] }} <br>
+{% endfor %}
+<p>
+<p></p>
+Tähän kokonaiskesto:
+<input type="number" name="kesto"></p>
+<input type="submit" value="Lähetä">
+</form>
+<p></p>
+<a href="/logout">Kirjaudu ulos</a>
+{% else %}
+<form action="/login" method="POST">
+<p>Tunnus:<br>
+<input type="text" name="username"></p>
+<p>Salasana:<br>
+<input type="password" name="password"></p>
+<input type="submit" value="Kirjaudu">
+</form>
+{% endif %}
