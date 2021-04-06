@@ -46,7 +46,7 @@ def registering():
     age = request.form["age"]
     if int(age) < 7:
         wage_id = 3
-    elif int(age) >7 and int(age) < 13:
+    elif int(age) >=7 and int(age) < 13:
         wage_id = 2
     else:
         wage_id = 1
