@@ -2,7 +2,21 @@
 <h1>Etusivu</h1>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
-<a href="/add_chore">Lisää uusi kotityö</a>
+<hr>
+{% for chore in chores %}
+Kotityön kuvaus: {{ chore[1] }} <br>
+Vastuussa: {{ chore[2] }} <br>
+Kesto: {{ chore[3] }} <br>
+Vaihe: {{ chore[4] }} <br>
+Kenelle soveltuu: {{ chore[5] }} <br>
+</hr>
+{% endfor %}
+<p></p>
+<hr>
+<a href="/add_chore">Lisää uusi tehty kotityö</a>
+<p></p>
+<a href="/add_chore_todo">Lisää uusi tekemätön kotityö</a>
+<p></p>
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <form action="/login" method="POST">

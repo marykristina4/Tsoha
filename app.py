@@ -63,4 +63,24 @@ def register():
 
 @app.route("/homechores")
 def homechores():
+    sql = "SELECT id, description, responsible_id, minutes, status_id, category_id FROM chores ORDER BY id DESC"
+    result = db.session.execute(sql)
+    chores = result.fetchall()
+    return render_template("homechores.html", chores=chores)
+
+@app.route("/add_chore")
+def add_chore():
+    return render_template("new_chore.html")
+
+@app.route("/new_chore", methods=["POST"])
+def new_chore():
+    kuvaus= request.form["kuvaus"]
+    kesto = request.form["kesto"]
+    kukapa = session["username"]
+    sql = "SELECT id FROM users WHERE username=:username"
+    result = db.session.execute(sql, {"username":kukapa})
+    kukapaid = result.fetchone()[0]
+    sql2 = "INSERT INTO chores (description,responsible_id,minutes,status_id,category_id) VALUES (:description,:responsible_id,:minutes,:status_id,:category_id)"
+    db.session.execute(sql2, {"description":kuvaus,"responsible_id":kukapaid,"minutes":kesto,"status_id":3,"category_id":3})
+    db.session.commit()
     return render_template("homechores.html")

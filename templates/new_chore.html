@@ -1,10 +1,15 @@
-Tervetuloa!
-<p>
-Olet sivuston {{ counter }}. käyttäjä
-<p>
+<title>Uusi kotityö</title>
+<h1>Uusi kotityö</h1>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
-<a href="/homechores">Pääsivulle</a>
+<form action="/new_chore" method="POST">
+Mikä kotityö?
+<input type="text" name="kuvaus">
+<br>
+Kuinka monta minuuttia siihen meni?
+<input type="text" name="kesto">
+<input type="submit" value="Lähetä">
+</form>
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <form action="/login" method="POST">
@@ -14,8 +19,4 @@ Olet sivuston {{ counter }}. käyttäjä
 <input type="password" name="password"></p>
 <input type="submit" value="Kirjaudu">
 </form>
-Tai:
-<a href="/register">Rekisteröidy käyttäjäksi</a>
 {% endif %}
-
-
