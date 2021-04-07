@@ -63,7 +63,7 @@ def register():
 
 @app.route("/homechores")
 def homechores():
-    sql = "SELECT id, description, responsible_id, minutes, status_id, category_id FROM chores ORDER BY id DESC"
+    sql = "SELECT id, description, responsible_id, minutes, status_id, category_id FROM chores WHERE status_id = 1 ORDER BY id DESC"
     result = db.session.execute(sql)
     chores = result.fetchall()
     return render_template("homechores.html", chores=chores)
@@ -83,9 +83,9 @@ def new_chore():
     sql2 = "INSERT INTO chores (description,responsible_id,minutes,status_id,category_id) VALUES (:description,:responsible_id,:minutes,:status_id,:category_id)"
     db.session.execute(sql2, {"description":kuvaus,"responsible_id":kukapaid,"minutes":kesto,"status_id":3,"category_id":3})
     db.session.commit()
-    return render_template("homechores.html")
+    return redirect("/homechores")
 
-@app.route("/choose_chore/<int:id>")
+@app.route("/forward_chore/<int:id>")
 def chore(id):
     sql = "SELECT id, description, responsible_id, minutes, status_id, category_id FROM chores WHERE id=:id"
     result = db.session.execute(sql, {"id":id})
@@ -94,6 +94,16 @@ def chore(id):
     result2 = db.session.execute(sql2)
     statuses = result2.fetchall()
     return render_template("chore.html", id=id, content=content, statuses=statuses)
+
+@app.route("/choose_chore/<int:id>")
+def choose_chore(id):
+    sql = "SELECT id, description, responsible_id, minutes, status_id, category_id FROM chores WHERE id=:id"
+    result = db.session.execute(sql, {"id":id})
+    content = result.fetchall()
+    sql2 = "SELECT * FROM statuses WHERE value in (2,3)"
+    result2 = db.session.execute(sql2)
+    statuses = result2.fetchall()
+    return render_template("chore_tome.html", id=id, content=content, statuses=statuses)
 
 @app.route("/update_chore", methods=["POST"])
 def update_chore():
@@ -117,3 +127,50 @@ def update_chore():
         db.session.execute(sql2, {"minutes":minutes,"id":id})
         db.session.commit()
     return redirect("/homechores")
+
+@app.route("/assign_chore", methods=["POST"])
+def assign_chore():
+    id = request.form["id"]
+    kukapa = session["username"]
+    kesto = request.form["kesto"]
+    sql = "SELECT id FROM users WHERE username=:username"
+    result = db.session.execute(sql, {"username":kukapa})
+    kukapaid = result.fetchone()[0]
+    status_id = request.form["status"]
+    sql2 = "UPDATE chores SET status_id=:status_id WHERE id=:id"
+    db.session.execute(sql2, {"status_id":status_id,"id":id})
+    db.session.commit()
+    sql3 = "UPDATE chores SET responsible_id=:responsible_id WHERE id=:id"
+    db.session.execute(sql3, {"responsible_id":kukapaid,"id":id})
+    db.session.commit()
+    sql4 = "UPDATE chores SET minutes=:minutes WHERE id=:id"
+    db.session.execute(sql4, {"minutes":kesto,"id":id})
+    db.session.commit()
+    return redirect("/homechores")
+
+@app.route("/add_chore_todo")
+def add_chore_todo():
+    sql = "SELECT * FROM categories"
+    result = db.session.execute(sql)
+    categories = result.fetchall()
+    sql2 = "SELECT * FROM statuses WHERE value in (1, 2)"
+    result2 = db.session.execute(sql2)
+    statuses = result2.fetchall()
+    return render_template("chore_todo.html", categories=categories, statuses=statuses)
+
+@app.route("/new_undone_chore", methods=["POST"])
+def new_undone_chore():
+    kuvaus= request.form["kuvaus"]
+    kesto = request.form["kesto"]
+    luokka = request.form["luokka"]
+    sql2 = "INSERT INTO chores (description,minutes,status_id,category_id) VALUES (:description,:minutes,:status_id,:category_id)"
+    db.session.execute(sql2, {"description":kuvaus,"minutes":kesto,"status_id":1,"category_id":luokka})
+    db.session.commit()
+    return redirect("/homechores")
+
+@app.route("/ongoing_chore")
+def ongoing_chore():
+    sql = "SELECT id, description, responsible_id, minutes, status_id, category_id FROM chores WHERE status_id in (2,3,4) ORDER BY id DESC"
+    result = db.session.execute(sql)
+    chores = result.fetchall()
+    return render_template("ongoing_homechores.html", chores=chores)

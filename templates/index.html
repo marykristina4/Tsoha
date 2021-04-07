@@ -1,11 +1,19 @@
+<title>Etusivu</title>
+<h1>Etusivu</h1>
 Tervetuloa!
 <p>
 Olet sivuston {{ counter }}. käyttäjä
 <p>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
-<a href="/homechores">Pääsivulle</a>
+<hr>
+Haluatko katsoa/raportoida tekemättömiä kotitöitä tai raportoida uusia tehtyjä?<br>
+<a href="/homechores">Kotityölistaukseen</a>
+<p></p>
+<hr>
+Jos olet valmis voit myös kirjautua ulos:<br>
 <a href="/logout">Kirjaudu ulos</a>
+<hr>
 {% else %}
 <form action="/login" method="POST">
 <p>Tunnus:<br>

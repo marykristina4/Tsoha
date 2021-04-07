@@ -1,13 +1,19 @@
 <title>Uusi kotityö</title>
-<h1>Uusi tehty kotityö</h1>
+<h1>Uusi tekemätön kotityö</h1>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
-<form action="/new_chore" method="POST">
-Mikä kotityö?
+<form action="/new_undone_chore" method="POST">
+Mikä kotityö?<br>
 <input type="text" name="kuvaus">
 <br>
-Kuinka monta minuuttia siihen meni?
+Kuinka monta minuuttia siihen arviolta menee?<br>
 <input type="text" name="kesto">
+<br>
+Kenelle työ sopii?<br>
+{% for category in categories %}
+<input type="radio" name="luokka" value={{ category[0] }}> {{ category[2] }} <br>
+{% endfor %}
+<br>
 <input type="submit" value="Lähetä">
 </form>
 <a href="/logout">Kirjaudu ulos</a>
