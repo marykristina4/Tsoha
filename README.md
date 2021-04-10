@@ -1,4 +1,4 @@
-Tsoha-aiheen suunnittelua
+# Kotityösovelluksen suunnittelua ja statusta:
 
 Sovellusta voi testata herokussa: https://tsoha-visitors666.herokuapp.com/
 Voi joko kirjautua olemassaolevilla tunnuksilla (käyttäjä: hildahippo, salasana: mutaruoho) tai luoda oman tunnuksen ja kirjautua sillä.
