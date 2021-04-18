@@ -124,6 +124,13 @@ def update_chore():
     print(id)
     print(minutes)
     print(status_id)
+    kukapa = session["username"]
+    sql5 = "SELECT wage_id FROM users WHERE username=:username"
+    result5 = db.session.execute(sql5, {"username":kukapa})
+    wage_id = result5.fetchone()[0]
+    sql6 = "SELECT hour_wage FROM wages WHERE id=:id"
+    result6 = db.session.execute(sql6, {"id":wage_id})
+    hour_wage = result6.fetchone()[0]
     if minutes in (None, "", ''):
         print("menee tähän ekaan vaihtoehtoon")
         sql = "UPDATE chores SET status_id=:status_id WHERE id=:id"
@@ -131,11 +138,17 @@ def update_chore():
         db.session.commit()
     else:
         print("ja nyt menee tähän tokaan")
+        print(status_id)
         sql = "UPDATE chores SET status_id=:status_id WHERE id=:id" 
         db.session.execute(sql, {"status_id":status_id,"id":id})
         db.session.commit()
         sql2 = "UPDATE chores SET minutes=:minutes WHERE id=:id"
         db.session.execute(sql2, {"minutes":minutes,"id":id})
+        db.session.commit()
+        salary_amount = round(hour_wage/60)*minutes
+        print(salary_amount)
+        sql3 = "UPDATE chores SET salary_amount=:salary_amount WHERE id=:id"
+        db.session.execute(sql3, {"salary_amount":salary_amount,"id":id})
         db.session.commit()
     return redirect("/homechores")
 
@@ -227,7 +240,4 @@ def payed_chores():
         sql3 = "SELECT a.id, a.description,b.username, a.minutes, d.description, c.description FROM chores a LEFT OUTER JOIN users b ON a.responsible_id = b.id LEFT OUTER JOIN categories c ON a.category_id = c.id LEFT OUTER JOIN statuses d on a.status_id = d.id WHERE status_id in (4,5) AND a.responsible_id=:responsible_id ORDER BY id DESC"
         result = db.session.execute(sql3,{"responsible_id":kukapaid})
     chores = result.fetchall()
-    sql4 = "SELECT wage_id FROM users WHERE username=:username"
-    result4 = db.session.execute(sql4, {"username":kukapa})
-    wage_id = result4.fetchone()[0]
-    return render_template("payed_chores.html", chores=chores, wage_id=wage_id)
+    return render_template("payed_chores.html", chores=chores)
