@@ -1,30 +1,20 @@
-<title>Kotityösivu</title>
-<h1>Vapaat Kotityöt</h1>
+<title>Maksetut kotityöt</title>
+<h1>Hyväksytyt ja maksetut kotityöt</h1>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
 {% for chore in chores %}
 <hr>
-<a href="/choose_chore/{{ chore[0] }}">Valitse tämä kotityö tehtäväksi / tarkasteltavaksi</a> <br>
 Kotityön kuvaus: {{ chore[1] }} <br>
 Vastuussa: {{ chore[2] }} <br>
 Kesto minuuteissa: {{ chore[3] }} <br>
 Vaihe: {{ chore[4] }} <br>
 Kenelle soveltuu: {{ chore[5] }} <br>
+Palkka: {{ palkka }} <br>
 </hr>
 {% endfor %}
 <p></p>
-<hr>
-<a href="/ongoing_chore">Päivitä keskeneräisiä töitäsi</a>
-<p></p>
-<a href="/add_chore">Lisää uusi tehty kotityö</a>
-<p></p>
-<a href="/add_chore_todo">Lisää uusi tekemätön kotityö</a>
-<p></p>
-<a href="/payed_chores">Tarkastele hyväksyttyjä ja maksettuja töitäsi</a>
-<p></p>
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
-<form action="/login" method="POST">
 <p>Tunnus:<br>
 <input type="text" name="username"></p>
 <p>Salasana:<br>

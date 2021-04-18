@@ -3,22 +3,20 @@
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
 <hr>
-<p>Kotityön id {{ id }}</p>
 {% for content in content %}
 Kotityön id: {{ content[0] }} <br>
 Kotityön kuvaus: {{ content[1] }} <br>
 Vastuussa: {{ content[2] }} <br>
-Kesto: {{ content[3] }} <br>
+Kesto minuuteissa: {{ content[3] }} <br>
 Vaihe: {{ content[4] }} <br>
 Kenelle soveltuu: {{ content[5] }} <br>
 </hr>
 {% endfor %}
 <p></p>
 <hr>
-<form action="/assign_chore" method="POST">
+<form name="Form" onsubmit="return validateForm()" action="/assign_chore" method="POST">
 <p>Päivitä vaihe:<br>
 <input type="hidden" name="id" value={{ id }}></p>
-Tähän vielä statusvaihtoehdot:<br>
 {% for status in statuses %}
 <input type="radio" name="status" value={{ status[0] }}> {{ status[2] }} <br>
 {% endfor %}
@@ -28,6 +26,15 @@ Voit raportoida keston tai arvioida sen:
 <p></p>
 <input type="submit" value="Teen/Olen tehnyt tämän työn">
 </form>
+<script type="text/javascript">
+  function validateForm() {
+    var a = document.forms["Form"]["status"].value;
+    if (a == null || a == "") {
+      alert("Ole hyvä ja valitse Status lomakkeelle - se on pakollinen tieto");
+      return false;
+    }
+  }
+</script>
 <p></p>
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}

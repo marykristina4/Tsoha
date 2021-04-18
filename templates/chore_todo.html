@@ -2,7 +2,7 @@
 <h1>Uusi tekemätön kotityö</h1>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
-<form action="/new_undone_chore" method="POST">
+<form name="Form" onsubmit="return validateForm()" action="/new_undone_chore" method="POST">
 Mikä kotityö?<br>
 <input type="text" name="kuvaus">
 <br>
@@ -16,6 +16,16 @@ Kenelle työ sopii?<br>
 <br>
 <input type="submit" value="Lähetä">
 </form>
+<script type="text/javascript">
+  function validateForm() {
+    var a = document.forms["Form"]["kuvaus"].value;
+    var b = document.forms["Form"]["luokka"].value;
+    if (a == null || a == "", b == null || b == "") {
+      alert("Täytä lomakkeelle kuvaus ja kenelle se sopii - ne ovat pakollisia kenttiä");
+      return false;
+    }
+  }
+</script>
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <form action="/login" method="POST">

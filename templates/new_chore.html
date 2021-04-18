@@ -2,7 +2,7 @@
 <h1>Uusi tehty kotityö</h1>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
-<form action="/new_chore" method="POST">
+<form name="Form" onsubmit="return validateForm()" action="/new_chore" method="POST">
 Mikä kotityö?
 <input type="text" name="kuvaus">
 <br>
@@ -10,6 +10,24 @@ Kuinka monta minuuttia siihen meni?
 <input type="text" name="kesto">
 <input type="submit" value="Lähetä">
 </form>
+<script type="text/javascript">
+  function validateForm() {
+    var a = document.forms["Form"]["kuvaus"].value;
+    var b = document.forms["Form"]["kesto"].value;
+    if (a == null || a == "", b == null || b == "") {
+      alert("Ole hyvä ja täytä kuvaus ja kesto - ne ovat pakollisia tietoja");
+      return false;
+    }
+    if (form.kuvaus.value.length > 100) {
+        alert("Kuvaus on liian pitkä");
+        return false;
+    }
+    if (form.kesto.value.length > 3) {
+        alert("Kesto on liian pitkä");
+        return false;
+    }
+  }
+</script>
 <a href="/logout">Kirjaudu ulos</a>
 {% else %}
 <form action="/login" method="POST">
