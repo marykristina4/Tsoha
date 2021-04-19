@@ -3,6 +3,9 @@
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
 <hr>
+{% if chores|length == 0 %}
+Ei keskeneräisiä töitä
+{% else %}
 {% for chore in chores %}
 <hr>
 <a href="/forward_chore/{{ chore[0] }}">Valitse tämä kotityö päivitettäväksi</a> <br>
@@ -18,6 +21,7 @@ Kenelle soveltuu: {{ chore[5] }} <br>
 <a href="/homechores">Takaisin vapaiden kotitöiden sivulle</a>
 <p></p>
 <a href="/logout">Kirjaudu ulos</a>
+{% endif %}
 {% else %}
 <form action="/login" method="POST">
 <p>Tunnus:<br>

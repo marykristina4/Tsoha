@@ -63,7 +63,7 @@ def register():
 
 @app.route("/homechores")
 def homechores():
-    sql = "SELECT a.id, a.description, b.username, a.minutes, d.description, c.description FROM chores a LEFT OUTER JOIN users b ON a.responsible_id = b.id LEFT OUTER JOIN categories c ON a.category_id = c.id LEFT OUTER JOIN statuses d ON a.status_id = d.id WHERE a.status_id = 1 ORDER BY id DESC"
+    sql = "SELECT a.id, a.description, b.username, a.minutes, d.description, c.description, a.salary_amount FROM chores a LEFT OUTER JOIN users b ON a.responsible_id = b.id LEFT OUTER JOIN categories c ON a.category_id = c.id LEFT OUTER JOIN statuses d ON a.status_id = d.id WHERE a.status_id = 1 ORDER BY id DESC"
     result = db.session.execute(sql)
     chores = result.fetchall()
     return render_template("homechores.html", chores=chores)
@@ -136,19 +136,28 @@ def update_chore():
         sql = "UPDATE chores SET status_id=:status_id WHERE id=:id"
         db.session.execute(sql, {"status_id":status_id,"id":id})
         db.session.commit()
-    else:
-        print("ja nyt menee tähän tokaan")
-        print(status_id)
-        sql = "UPDATE chores SET status_id=:status_id WHERE id=:id" 
+    elif int(status_id)==5:
+        print("menee statukseen")
+        sql = "UPDATE chores SET status_id=:status_id WHERE id=:id"
         db.session.execute(sql, {"status_id":status_id,"id":id})
         db.session.commit()
         sql2 = "UPDATE chores SET minutes=:minutes WHERE id=:id"
         db.session.execute(sql2, {"minutes":minutes,"id":id})
         db.session.commit()
-        salary_amount = round(hour_wage/60)*minutes
-        print(salary_amount)
+        salary_amount = float(((float(hour_wage))/60)*float(minutes))
+        print(float(salary_amount))
+        print(int(salary_amount))
         sql3 = "UPDATE chores SET salary_amount=:salary_amount WHERE id=:id"
-        db.session.execute(sql3, {"salary_amount":salary_amount,"id":id})
+        db.session.execute(sql3, {"salary_amount":int(salary_amount),"id":id})
+        db.session.commit()
+    else:
+        print("ja nyt menee tähän tokaan")
+        print(status_id)
+        sql = "UPDATE chores SET status_id=:status_id WHERE id=:id"
+        db.session.execute(sql, {"status_id":status_id,"id":id})
+        db.session.commit()
+        sql2 = "UPDATE chores SET minutes=:minutes WHERE id=:id"
+        db.session.execute(sql2, {"minutes":minutes,"id":id})
         db.session.commit()
     return redirect("/homechores")
 
@@ -222,6 +231,8 @@ def ongoing_chore():
         sql3 = "SELECT a.id, a.description,b.username, a.minutes, d.description, c.description FROM chores a LEFT OUTER JOIN users b ON a.responsible_id = b.id LEFT OUTER JOIN categories c ON a.category_id = c.id LEFT OUTER JOIN statuses d on a.status_id = d.id WHERE a.status_id in (2,3,4) AND a.responsible_id=:responsible_id ORDER BY a.id DESC"
         result = db.session.execute(sql3,{"responsible_id":kukapaid})
     chores = result.fetchall()
+    print(len(chores))
+    print("on koko")
     return render_template("ongoing_homechores.html", chores=chores)
 
 @app.route("/payed_chores")
@@ -234,10 +245,10 @@ def payed_chores():
     result = db.session.execute(sql2, {"username":kukapa})
     role = result.fetchone()[0]
     if role==1:
-        sql3 = "SELECT a.id, a.description, b.username, a.minutes, d.description, c.description FROM chores a LEFT OUTER JOIN users b ON a.responsible_id = b.id LEFT OUTER JOIN categories c ON a.category_id = c.id LEFT OUTER JOIN statuses d on a.status_id = d.id WHERE status_id in (4,5) ORDER BY id DESC"
+        sql3 = "SELECT a.id, a.description, b.username, a.minutes, d.description, c.description, a.salary_amount FROM chores a LEFT OUTER JOIN users b ON a.responsible_id = b.id LEFT OUTER JOIN categories c ON a.category_id = c.id LEFT OUTER JOIN statuses d on a.status_id = d.id WHERE status_id in (4,5) ORDER BY id DESC"
         result = db.session.execute(sql3)
     else:
-        sql3 = "SELECT a.id, a.description,b.username, a.minutes, d.description, c.description FROM chores a LEFT OUTER JOIN users b ON a.responsible_id = b.id LEFT OUTER JOIN categories c ON a.category_id = c.id LEFT OUTER JOIN statuses d on a.status_id = d.id WHERE status_id in (4,5) AND a.responsible_id=:responsible_id ORDER BY id DESC"
+        sql3 = "SELECT a.id, a.description,b.username, a.minutes, d.description, c.description, a.salary_amount FROM chores a LEFT OUTER JOIN users b ON a.responsible_id = b.id LEFT OUTER JOIN categories c ON a.category_id = c.id LEFT OUTER JOIN statuses d on a.status_id = d.id WHERE status_id in (4,5) AND a.responsible_id=:responsible_id ORDER BY id DESC"
         result = db.session.execute(sql3,{"responsible_id":kukapaid})
     chores = result.fetchall()
     return render_template("payed_chores.html", chores=chores)
