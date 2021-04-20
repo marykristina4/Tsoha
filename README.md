@@ -1,20 +1,16 @@
 # Kotityösovelluksen suunnittelua ja statusta:
 
+Päivitetty 20.4.2021
 Sovellusta voi testata herokussa: https://tsoha-visitors666.herokuapp.com/
 Voi joko kirjautua olemassaolevilla tunnuksilla (käyttäjä: hildahippo, salasana: mutaruoho) tai luoda oman tunnuksen ja kirjautua sillä.
-
-Ajattelin että sovelluksen laajuus olisi suunnilleen tämä jo nyt toteutettu, mutta vielä tärkein puuttuva on ylläpitäjän tehtävät ja
-niiden toteutus. 
+Jos haluaa testata ylläpitäjän toiminnallisuutta, tulee kirjautua ylläpitäjänä käyttäjä: adminpossu, salasana: possuhallitsee. 
+Ajattelin että sovelluksen laajuus olisi suunnilleen tämä jo nyt toteutettu, vielä pitää tehdä siistimistä, testaamista ja ulkonäköön liittyvää kehitystä. 
 
 Todo:
-Seuraavaksi pitäisi tehdä:
--joinit eli kotitöitä kun listataan ei näkyisi numeroita vaan kentistä descriptionit
--adminin toiminnallisuudet eli töiden hyväksyntä ja palkanmaksu 
--virheiden käsittelyä
+Seuraavaksi pitäisi tehdä: 
+-testaamista
 -ulkonäköä
 
-Kysymys: Onko parempi toteuttaa ylläpitäjän toiminnallisuudet näille olemassa oleville sivuille jonkinlaisella logiikalla vai onko ok 
-tehdä erillinen linkki pääsivulta ylläpitäjälle niin että hänellä on omat sivut omiin töihinsä?
 ----------------------------------------------------------------------------------------------------------------------------------------
 ## Suunnitelma:
 Minulla on useampia lapsia, ja jatkuvana ongelmana on se, etten muista kuka lapsi on milloinkin 
@@ -30,13 +26,14 @@ Kotityö-sovellus
 - Käyttäjä näkee tehtävänä olevat kotityöt ja voi valita jonkun jolloin siitä näytetään lisätietoja (10.4.21: Tehty)
 - Käyttäjä voi kuitata työn tehdyksi ja kirjata käytetyn ajan (10.4.21: Tehty)
 - Käyttäjä voi etsiä kotitöitä yksittäisillä hakusanoilla (Tekemättä, kenties olisi tarpeellinen jos töitä kertyy paljon)
-- Käyttäjä voi listata tekemänsä kotityöt (Tällä hetkellä näkee kaikki tehdyt kotityöt, voisi filtteröidä niin että näkee omansa)
-- Ylläpitäjä voi lisätä ja poistaa kotitöitä sekä määrittää kotityöstä näytettäviä tietoja (toimii nyt samoin kuin muille käyttäjille)
-- Ylläpitäjä voi muokata käyttäjän raportoimaa ajankäyttöä (voi, mutta niin voivat muutkin vielä...)
+- Käyttäjä voi listata tekemänsä kotityöt (20.4.21: Tehty, ylläpitäjä näkee kaikkien.)
+- Ylläpitäjä voi lisätä ja poistaa kotitöitä sekä määrittää kotityöstä näytettäviä tietoja (20.4.21: Kotitöitä ei poisteta, mutta ne siirtyvät
+  eri sivuille näkyviin statuksen mukaan)
+- Ylläpitäjä voi muokata käyttäjän raportoimaa ajankäyttöä (20.4.21: Tehty; kun ylläpitäjä kuittaa maksun kirjataan samalla tunnit "pysyviksi"
+  siinä mielessä että palkka lasketaan ylläpitäjän kirjaaman ajan mukaan)
 - Ylläpitäjä voi määrittää uusille kotitöille arvioidun suoritusajan (voi, mutta voivat muutkin. Tätä en aio tehdä erilaiseksi ylläpitäjälle)
-- Ylläpitäjä voi poistaa käyttäjän raportoiman kotityön, esim kun palkka maksetaan, työ poistetaan. (Tekemättä)
-- Ylläpitäjä näkee eri käyttäjien tekemät kotityöt (Toistaiseksi kaikki näkee kaiken, tämä kaikkien kotitöiden näkymä tulevaisuudessa vain
-ylläpitäjälle)
+- Ylläpitäjä voi poistaa käyttäjän raportoiman kotityön, esim kun palkka maksetaan, työ poistetaan. (20.4.21: Tehty, työ siirtyy maksettujen joukkoon)
+- Ylläpitäjä näkee eri käyttäjien tekemät kotityöt (20.4.21: Tehty)
 
 Repositorion nimi muutettu: uusi nimi Tsoha-kotityosovellus
 Päivitty myös labtooliin.
