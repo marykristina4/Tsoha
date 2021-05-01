@@ -20,9 +20,21 @@ Kenelle työ sopii?<br>
   function validateForm() {
     var a = document.forms["Form"]["kuvaus"].value;
     var b = document.forms["Form"]["luokka"].value;
+    var c = document.forms["Form"]["kesto"].value;
     if (a == null || a == "", b == null || b == "") {
       alert("Täytä lomakkeelle kuvaus ja kenelle se sopii - ne ovat pakollisia kenttiä");
       return false;
+    }
+    else if (c.length > 3) {
+      alert("Kesto on liian pitkä");
+      return false;
+    }
+    else if (isNaN(c)) {
+      alert("Keston oltava numeroita");
+      return false;
+    }
+    else {
+      return true;
     }
   }
 </script>

@@ -1,0 +1,25 @@
+p {
+  color: green;
+}
+body {
+    margin: auto;
+    max-width: 45em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background: gray;
+}
+nav li {
+    display: inline-block;
+    padding: 0 .5em;
+}
+.header {
+    background: sandybrown;
+    font-weight: bold;
+    padding: 2em 1em;
+    font-size: 2em;
+}
+form {
+    display: block;
+    float: right;
+    padding: .5em;
+    background: blanchedalmond;
+}

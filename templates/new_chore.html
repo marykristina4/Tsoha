@@ -18,14 +18,21 @@ Kuinka monta minuuttia siihen meni?
       alert("Ole hyvä ja täytä kuvaus ja kesto - ne ovat pakollisia tietoja");
       return false;
     }
-    if (form.kuvaus.value.length > 100) {
+    else if (a.length > 100) {
         alert("Kuvaus on liian pitkä");
         return false;
     }
-    if (form.kesto.value.length > 3) {
+    else if (b.length > 3) {
         alert("Kesto on liian pitkä");
         return false;
     }
+    else if (isNaN(b)) {
+        alert("Keston oltava numeroita");
+        return false;
+    }
+    else {
+        return true;
+    } 
   }
 </script>
 <a href="/logout">Kirjaudu ulos</a>
