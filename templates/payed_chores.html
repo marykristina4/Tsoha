@@ -1,5 +1,8 @@
+{% extends "layout.html" %}
+{% block title %}Hyväksytyt ja maksetut kotityöt{% endblock %}
+{% block content %}
 <title>Maksetut kotityöt</title>
-<h1>Hyväksytyt ja maksetut kotityöt</h1>
+<h2>Hyväksytyt ja maksetut kotityöt</h2>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
 {% for chore in chores %}
@@ -23,3 +26,4 @@ Palkka euroina: {{ chore[6] }} <br>
 </form>
 {% endif %}
 <a href="/">Etusivulle</a>
+{% endblock %}

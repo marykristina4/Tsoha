@@ -1,5 +1,8 @@
+{% extends "layout.html" %}
+{% block title %}Uusi tehty kotityö{% endblock %}
+{% block content %}
 <title>Uusi kotityö</title>
-<h1>Uusi tehty kotityö</h1>
+<h2>Uusi kotityö</h2>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
 <form name="Form" onsubmit="return validateForm()" action="/new_chore" method="POST">
@@ -30,6 +33,10 @@ Kuinka monta minuuttia siihen meni?
         alert("Keston oltava numeroita");
         return false;
     }
+    else if (b < 0) {
+        alert("Kesto ei voi olla negatiivinen")
+        return false;
+    }
     else {
         return true;
     } 
@@ -45,3 +52,4 @@ Kuinka monta minuuttia siihen meni?
 <input type="submit" value="Kirjaudu">
 </form>
 {% endif %}
+{% endblock %}

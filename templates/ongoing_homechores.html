@@ -1,5 +1,8 @@
+{% extends "layout.html" %}
+{% block title %}Kotityösivu{% endblock %}
+{% block content %}
 <title>Kotityösivu</title>
-<h1>Kotityöt</h1>
+<h2>Kotityösivu</h2>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
 <hr>
@@ -32,3 +35,4 @@ Kenelle soveltuu: {{ chore[5] }} <br>
 </form>
 {% endif %}
 <a href="/">Etusivulle</a>
+{% endblock %}

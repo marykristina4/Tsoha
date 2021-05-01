@@ -1,14 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}Vapaat kotityöt{% endblock %}
+{% block content %}
 <title>Kotityösivu</title>
-<head>
-</head>
-<h1>Vapaat Kotityöt</h1>
+<h2>Vapaat kotityöt</h2>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
 {% for chore in chores %}
 <hr>
 <a href="/choose_chore/{{ chore[0] }}">Valitse tämä kotityö tehtäväksi / tarkasteltavaksi</a> <br>
 Kotityön kuvaus: {{ chore[1] }} <br>
-Vastuussa: {{ chore[2] }} <br>
 Kesto minuuteissa: {{ chore[3] }} <br>
 Vaihe: {{ chore[4] }} <br>
 Kenelle soveltuu: {{ chore[5] }} <br>
@@ -34,4 +34,4 @@ Kenelle soveltuu: {{ chore[5] }} <br>
 <input type="submit" value="Kirjaudu">
 </form>
 {% endif %}
-<a href="/">Etusivulle</a>
+{% endblock %}

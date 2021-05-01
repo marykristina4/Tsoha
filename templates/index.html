@@ -1,6 +1,8 @@
+{% extends "layout.html" %}
+{% block title %}Etusivu{% endblock %}
+{% block content %}
 <title>Etusivu</title>
-<h1>Etusivu</h1>
-Tervetuloa!
+<h2>Tervetuloa!</h2>
 <p>
 Olet sivuston {{ counter }}. käyttäjä
 <p>
@@ -15,6 +17,7 @@ Jos olet valmis voit myös kirjautua ulos:<br>
 <a href="/logout">Kirjaudu ulos</a>
 <hr>
 {% else %}
+<hr>
 <form action="/login" method="POST">
 <p>Tunnus:<br>
 <input type="text" name="username"></p>
@@ -22,8 +25,8 @@ Jos olet valmis voit myös kirjautua ulos:<br>
 <input type="password" name="password"></p>
 <input type="submit" value="Kirjaudu">
 </form>
-Tai:
+<p> Jos et ole vielä sovelluksen käyttäjä:</p>
 <a href="/register">Rekisteröidy käyttäjäksi</a>
 {% endif %}
-
+{% endblock %}
 

@@ -1,5 +1,5 @@
-<title>Etusivu</title
-<h1> Kuvaus kotityöstä</h1>
+<title>minulle</title>
+<h2>Kotityö minulle</h2>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
 <hr>
@@ -29,9 +29,17 @@ Voit raportoida keston tai arvioida sen:
 <script type="text/javascript">
   function validateForm() {
     var a = document.forms["Form"]["status"].value;
+    var b = document.forms["Form"]["kesto"].value;
     if (a == null || a == "") {
       alert("Ole hyvä ja valitse Status lomakkeelle - se on pakollinen tieto");
       return false;
+    }
+    else if (b < 0) {
+        alert("Kesto ei voi olla negatiivinen")
+        return false;
+    }
+    else {
+        return true;
     }
   }
 </script>
@@ -46,4 +54,45 @@ Voit raportoida keston tai arvioida sen:
 <input type="submit" value="Kirjaudu">
 </form>
 {% endif %}
-
+<style>
+p {
+  color: darkmagenta;
+}
+body {
+    margin: auto;
+    max-width: 45em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background: lightpink;
+}
+nav li {
+    display: inline-block;
+    padding: 0 .5em;
+}
+h1 {
+    color: chartreuse;
+    font-weight: bold;
+    padding: 2em 1em;
+    font-size: 2em;
+    margin: auto;
+    max-width: 45em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}
+form {
+    display: block;
+    float: right;
+    padding: .5em;
+    background: blanchedalmond;
+}
+title {
+    margin: auto;
+    max-width: 45em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background: chartreuse;
+}
+h2 {
+    margin: auto;
+    max-width: 45em;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    color: fuchsia;
+}
+</style>

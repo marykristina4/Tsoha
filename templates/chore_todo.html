@@ -1,7 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Uusi tekemätön kotityö{% endblock %}
+{% block content %}
 <title>Uusi kotityö</title>
-<h1>Uusi tekemätön kotityö</h1>
+<h2>Uusi tekemätön kotityö</h2>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
+<hr>
+<p>Olet havainnut tehtävän kotityön. Ole hyvä ja kirjaa mikä se on ja kauan siihen arviolta menee:<p/>
 <form name="Form" onsubmit="return validateForm()" action="/new_undone_chore" method="POST">
 Mikä kotityö?<br>
 <input type="text" name="kuvaus">
@@ -33,6 +38,10 @@ Kenelle työ sopii?<br>
       alert("Keston oltava numeroita");
       return false;
     }
+    else if (c < 0) {
+        alert("Kesto ei voi olla negatiivinen")
+        return false;
+    }
     else {
       return true;
     }
@@ -48,3 +57,4 @@ Kenelle työ sopii?<br>
 <input type="submit" value="Kirjaudu">
 </form>
 {% endif %}
+{% endblock %}
