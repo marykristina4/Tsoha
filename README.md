@@ -9,9 +9,9 @@ Jos haluaa testata ylläpitäjän toiminnallisuutta, tulee kirjautua ylläpitäj
 
 Sovelluksen käyttö tulisi olla aika itseohjautuvaa ja käyttöliittymän tukemaa. Toivon, että käyttäjälle on selvää miten sovellus toimii. Olen testannut
 sovellusta melko paljon, mutta toki silti on mahdollista, että löytyy jotain bugeja joita en ole havainnut. Toivon, että kurssin päättymisen jälkeenkin
-näistä bugin havaitsija (tai kurssin ohjaaja) tekisi githubiin issuen, jotta voisin sovellusta tarvittaessa korjata.
+näistä bugin havaitsija (esimerkiksi kurssin ohjaaja) tekisi githubiin issuen, jotta voisin sovellusta tarvittaessa korjata.
 
-Alla oleva suunnitelma osoittautui hyväksy ohjenuoraksi sovelluksen kehittämiseen. Sovellukseen tulee kirjautua, jotta pääsee näkemään vapaita
+Alla oleva suunnitelma osoittautui hyväksi ohjenuoraksi sovelluksen kehittämiseen. Sovellukseen tulee kirjautua, jotta pääsee näkemään vapaita
 kotitöitä sekä ilmoittamaan uusista, joko tekemättömistä tai tehdyistä kotitöistä. Käyttäjä voi sovelluksessa seurata ja päivittää valitsemiaan/tekemiään
 kotitöitä. Käyttäjä voi myös seurata miten ylläpitäjä hyväksyy/maksaa tehtyjä kotitöitä. Lomakkeilla on logiikkaa, joka takaa ettei tyhjiä tai pahasti 
 virheellisiä syötteitä lähetetä käyttäjän toimesta. Ylläpitäjä rooli on ainoa, joka voi merkata kotitöitä hyväksytyiksi ja maksetuiksi. Ylläpitäjä näkee
