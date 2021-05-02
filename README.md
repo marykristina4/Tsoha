@@ -19,7 +19,7 @@ kaikkien käyttäjien keskeneräiset kotityöt, käyttäjät itse näkevät vain
 yli - tämä on tarkoituksellista. Esimerkiksi jos kotityö ei ole kunnolla tehty, eikä sitä voi hyväksyä, sen voi siirtää takaisin vapaaksi. Sovelluksen ulkoasu on lapsille mieleinen. Sovellus vaikuttaa toimivan hyvin myös mobiililaitteella.
 
 ----------------------------------------------------------------------------------------------------------------------------------------
-## Suunnitelma:
+## Suunnitelma (alkuperäinen):
 Minulla on useampia lapsia, ja jatkuvana ongelmana on se, etten muista kuka lapsi on milloinkin 
 tehnyt mitäkin ja viikkorahojen maksu ei mene oikein. Sovelluksen tavoitteena on ratkaista tämä ongelma.
 Tarkoitus on, että voin itse ylläpitäjänä listata tehtäviä töitä sovellukseen, mutta myös lapset (käyttäjät)
