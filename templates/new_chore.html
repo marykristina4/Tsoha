@@ -11,6 +11,7 @@ Mikä kotityö?
 <br>
 Kuinka monta minuuttia siihen meni?
 <input type="text" name="kesto">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 <input type="submit" value="Lähetä">
 </form>
 <script type="text/javascript">

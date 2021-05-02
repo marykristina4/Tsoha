@@ -2,6 +2,7 @@ from app import app
 from flask import redirect, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 from db import db
+import secrets
 
 @app.route("/")
 def index():
@@ -19,11 +20,12 @@ def login():
     result = db.session.execute(sql, {"username":username})
     user = result.fetchone()
     if user == None:
-        return redirect("/register")
+        return render_template("wrong_passwd.html")
     else:
         hash_value = user[0]
     if check_password_hash(hash_value,password):
         session["username"] = username
+        session["csrf_token"] = secrets.token_hex(16)
         return redirect("/homechores")
     else:
         return render_template("wrong_passwd.html")
@@ -68,6 +70,8 @@ def add_chore():
 
 @app.route("/new_chore", methods=["POST"])
 def new_chore():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     kuvaus= request.form["kuvaus"]
     kesto = request.form["kesto"]
     kukapa = session["username"]
@@ -112,12 +116,11 @@ def choose_chore(id):
 
 @app.route("/update_chore", methods=["POST"])
 def update_chore():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     id = request.form["id"]
     minutes = request.form["kesto"]
     status_id = request.form["status"]
-    print(id)
-    print(minutes)
-    print(status_id)
     kukapa = session["username"]
     sql5 = "SELECT wage_id FROM users WHERE username=:username"
     result5 = db.session.execute(sql5, {"username":kukapa})
@@ -126,12 +129,10 @@ def update_chore():
     result6 = db.session.execute(sql6, {"id":wage_id})
     hour_wage = result6.fetchone()[0]
     if minutes in (None, "", ''):
-        print("menee tähän ekaan vaihtoehtoon")
         sql = "UPDATE chores SET status_id=:status_id WHERE id=:id"
         db.session.execute(sql, {"status_id":status_id,"id":id})
         db.session.commit()
     elif int(status_id)==5:
-        print("menee statukseen")
         sql = "UPDATE chores SET status_id=:status_id WHERE id=:id"
         db.session.execute(sql, {"status_id":status_id,"id":id})
         db.session.commit()
@@ -139,14 +140,10 @@ def update_chore():
         db.session.execute(sql2, {"minutes":minutes,"id":id})
         db.session.commit()
         salary_amount = float(((float(hour_wage))/60)*float(minutes))
-        print(float(salary_amount))
-        print(int(salary_amount))
         sql3 = "UPDATE chores SET salary_amount=:salary_amount WHERE id=:id"
         db.session.execute(sql3, {"salary_amount":int(salary_amount),"id":id})
         db.session.commit()
     else:
-        print("ja nyt menee tähän tokaan")
-        print(status_id)
         sql = "UPDATE chores SET status_id=:status_id WHERE id=:id"
         db.session.execute(sql, {"status_id":status_id,"id":id})
         db.session.commit()
@@ -157,6 +154,8 @@ def update_chore():
 
 @app.route("/assign_chore", methods=["POST"])
 def assign_chore():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     if request.form["status"] in (None, "", ''):
         if request.form["kesto"] in (None, "", ''):
             render_template("error.html")
@@ -200,6 +199,8 @@ def add_chore_todo():
 
 @app.route("/new_undone_chore", methods=["POST"])
 def new_undone_chore():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     kuvaus= request.form["kuvaus"]
     kesto = request.form["kesto"]
     luokka = request.form["luokka"]
@@ -217,7 +218,6 @@ def ongoing_chore():
     sql2 = "SELECT role FROM users WHERE username=:username"
     result = db.session.execute(sql2, {"username":kukapa})
     role = result.fetchone()[0]
-    print (role)
     if role==1:
         sql3 = "SELECT a.id, a.description, b.username, a.minutes, d.description, c.description FROM chores a LEFT OUTER JOIN users b ON a.responsible_id = b.id LEFT OUTER JOIN categories c ON a.category_id = c.id LEFT OUTER JOIN statuses d on a.status_id = d.id WHERE status_id in (2,3,4) ORDER BY id DESC"
         result = db.session.execute(sql3)
@@ -225,8 +225,6 @@ def ongoing_chore():
         sql3 = "SELECT a.id, a.description,b.username, a.minutes, d.description, c.description FROM chores a LEFT OUTER JOIN users b ON a.responsible_id = b.id LEFT OUTER JOIN categories c ON a.category_id = c.id LEFT OUTER JOIN statuses d on a.status_id = d.id WHERE a.status_id in (2,3,4) AND a.responsible_id=:responsible_id ORDER BY a.id DESC"
         result = db.session.execute(sql3,{"responsible_id":kukapaid})
     chores = result.fetchall()
-    print(len(chores))
-    print("on koko")
     return render_template("ongoing_homechores.html", chores=chores)
 
 @app.route("/payed_chores")

@@ -25,6 +25,7 @@ Tähän vielä statusvaihtoehdot:<br>
 <p></p>
 Tähän kokonaiskesto:
 <input type="number" name="kesto"></p>
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 <input type="submit" value="Lähetä">
 </form>
 <script type="text/javascript">
@@ -55,6 +56,7 @@ Tähän kokonaiskesto:
 <input type="submit" value="Kirjaudu">
 </form>
 {% endif %}
+<a href="/">Etusivulle</a>
 <style>
 p {
   color: darkmagenta;

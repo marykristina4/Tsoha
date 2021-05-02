@@ -5,7 +5,6 @@
 <h2>Kotityösivu</h2>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
-<hr>
 {% if chores|length == 0 %}
 Ei keskeneräisiä töitä
 {% else %}

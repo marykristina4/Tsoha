@@ -19,6 +19,7 @@ Kenelle työ sopii?<br>
 <input type="radio" name="luokka" value={{ category[0] }}> {{ category[2] }} <br>
 {% endfor %}
 <br>
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 <input type="submit" value="Lähetä">
 </form>
 <script type="text/javascript">
@@ -26,8 +27,8 @@ Kenelle työ sopii?<br>
     var a = document.forms["Form"]["kuvaus"].value;
     var b = document.forms["Form"]["luokka"].value;
     var c = document.forms["Form"]["kesto"].value;
-    if (a == null || a == "", b == null || b == "") {
-      alert("Täytä lomakkeelle kuvaus ja kenelle se sopii - ne ovat pakollisia kenttiä");
+    if (a == null || a == "", b == null || b == "", c == null || c == "") {
+      alert("Täytä lomakkeelle kuvaus, kesto ja kenelle se sopii - ne ovat pakollisia kenttiä");
       return false;
     }
     else if (c.length > 3) {

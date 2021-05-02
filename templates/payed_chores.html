@@ -5,6 +5,10 @@
 <h2>Hyväksytyt ja maksetut kotityöt</h2>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
+{% if chores|length == 0 %}
+<hr>
+Ei hyväksyttyjä tai maksettuja töitä <br>
+{% else %}
 {% for chore in chores %}
 <hr>
 Kotityön kuvaus: {{ chore[1] }} <br>
@@ -17,6 +21,7 @@ Palkka euroina: {{ chore[6] }} <br>
 {% endfor %}
 <p></p>
 <a href="/logout">Kirjaudu ulos</a>
+{% endif %}
 {% else %}
 <p>Tunnus:<br>
 <input type="text" name="username"></p>

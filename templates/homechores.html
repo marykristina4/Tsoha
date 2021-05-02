@@ -5,6 +5,9 @@
 <h2>Vapaat kotityöt</h2>
 {% if session.username %}
 <p>Olet kirjautunut nimellä {{ session.username }}</p>
+{% if chores|length == 0 %}
+Ei vapaita kotitöitä
+{% else %}
 {% for chore in chores %}
 <hr>
 <a href="/choose_chore/{{ chore[0] }}">Valitse tämä kotityö tehtäväksi / tarkasteltavaksi</a> <br>
@@ -25,6 +28,7 @@ Kenelle soveltuu: {{ chore[5] }} <br>
 <a href="/payed_chores">Tarkastele hyväksyttyjä ja maksettuja töitäsi</a>
 <p></p>
 <a href="/logout">Kirjaudu ulos</a>
+{% endif %}
 {% else %}
 <form action="/login" method="POST">
 <p>Tunnus:<br>
