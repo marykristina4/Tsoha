@@ -1,6 +1,7 @@
 # Kotityösovellukseni
 
-Päivitetty 2.5.2021
+Päivitetty 2.5.2021: 
+
 Sovellusta voi testata herokussa: https://tsoha-visitors666.herokuapp.com/
 Voi joko kirjautua olemassaolevilla tunnuksilla (käyttäjä: testipossu, salasana: huulirasva) tai luoda oman tunnuksen ja kirjautua sillä.
 Jos haluaa testata ylläpitäjän toiminnallisuutta, tulee kirjautua ylläpitäjänä käyttäjä: adminpossu, salasana: possuhallitsee. 
